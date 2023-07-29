@@ -44,4 +44,9 @@ public class IndexController {
 
     return "redirect:/";
   }
+  @PostMapping("/delete")
+  public String deleteUrl(@RequestParam Long id) {
+    urlRepository.deleteById(id);
+    return "redirect:/";
+  }
 }

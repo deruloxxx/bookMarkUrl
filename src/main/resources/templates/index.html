@@ -17,6 +17,7 @@
       <th>Title</th>
       <th>Description</th>
       <th>Thumbnail</th>
+      <th>Delete</th>
     </tr>
     <tr th:each="urlInfo : ${urlInfos}">
       <td th:text="${urlInfo.id}"></td>
@@ -24,6 +25,12 @@
       <td th:text="${urlInfo.title}"></td>
       <td th:text="${urlInfo.description}"></td>
       <td><img th:src="${urlInfo.thumbnail}" width="100"></td>
+      <td>
+        <form th:action="@{/delete}" method="post">
+          <input type="hidden" th:value="${urlInfo.id}" name="id"/>
+          <input type="submit" value="Delete"/>
+        </form>
+      </td>
     </tr>
   </table>
 </body>
