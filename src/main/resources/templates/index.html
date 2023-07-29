@@ -6,5 +6,25 @@
 </head>
 <body>
   <h1>Book Mark Url</h1>
+  <form th:action="@{/add}" method="post">
+    <input type="text" name="url" placeholder="Enter URL here" required>
+    <button type="submit">Add URL</button>
+  </form>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>URL</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Thumbnail</th>
+    </tr>
+    <tr th:each="urlInfo : ${urlInfos}">
+      <td th:text="${urlInfo.id}"></td>
+      <td th:text="${urlInfo.url}"></td>
+      <td th:text="${urlInfo.title}"></td>
+      <td th:text="${urlInfo.description}"></td>
+      <td><img th:src="${urlInfo.thumbnail}" width="100"></td>
+    </tr>
+  </table>
 </body>
 </html>
