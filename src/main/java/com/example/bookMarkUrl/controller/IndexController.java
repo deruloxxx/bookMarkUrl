@@ -2,9 +2,11 @@ package com.example.bookMarkUrl.controller;
 
 import com.example.bookMarkUrl.entity.UrlInfo;
 import com.example.bookMarkUrl.repository.UrlRepository;
+import com.example.bookMarkUrl.service.UrlScraperService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class IndexController {
-  private final UrlRepository urlRepository;
+  @Autowired
+  private UrlRepository urlRepository;
+  @Autowired
+  private UrlScraperService urlScraperService;
+
   public IndexController(UrlRepository urlInfoRepository) {
     this.urlRepository = urlInfoRepository;
   }
