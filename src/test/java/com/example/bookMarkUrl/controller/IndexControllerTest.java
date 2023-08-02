@@ -14,6 +14,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 @WebMvcTest(IndexController.class)
 class IndexControllerTest {
   @Autowired
@@ -58,5 +61,15 @@ class IndexControllerTest {
         .andExpect(MockMvcResultMatchers.redirectedUrl("/"));
 
     Mockito.verify(urlRepository, Mockito.times(1)).save(Mockito.any(UrlInfo.class));
+  }
+  @Test
+  public void shouldDeleteUrlAndRedirect() throws Exception {
+    Long idToDelete = 1L;
+
+    mockMvc.perform(MockMvcRequestBuilders.post("/delete").param("id", idToDelete.toString()))
+        .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+        .andExpect(MockMvcResultMatchers.redirectedUrl("/"));
+
+    verify(urlRepository, times(1)).deleteById(idToDelete);
   }
 }
