@@ -1,8 +1,8 @@
 package com.example.bookMarkUrl.controller;
 
 import com.example.bookMarkUrl.entity.UrlInfo;
-import com.example.bookMarkUrl.repository.UrlRepository;
-import com.example.bookMarkUrl.service.UrlScraperService;
+import com.example.bookMarkUrl.repository.UrlInfoRepository;
+import com.example.bookMarkUrl.service.UrlInfoService;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.junit.jupiter.api.Test;
@@ -17,14 +17,14 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-@WebMvcTest(IndexController.class)
+@WebMvcTest(UrlInfoController.class)
 class IndexControllerTest {
   @Autowired
   private MockMvc mockMvc;
   @MockBean
-  private UrlRepository urlRepository;
+  private UrlInfoRepository urlRepository;
   @MockBean
-  private UrlScraperService urlScraperService;
+  private UrlInfoService urlScraperService;
   @Test
   public void shouldReturnTopPage() throws Exception {
     mockMvc.perform(MockMvcRequestBuilders.get("/"))
