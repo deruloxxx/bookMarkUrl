@@ -23,8 +23,12 @@
       <td th:text="${urlInfo.id}"></td>
       <td th:text="${urlInfo.url}"></td>
       <td th:text="${urlInfo.title}"></td>
-      <td th:text="${urlInfo.description}"></td>
-      <td><img th:src="${urlInfo.thumbnail}" width="100"></td>
+      <td th:if="${urlInfo.description}" th:text="${urlInfo.description}"></td>
+      <td th:text="${urlInfo.description != null ? urlInfo.description : '設定なし'}"></td>
+      <td>
+        <img th:if="${urlInfo.thumbnail != null}" th:src="${urlInfo.thumbnail}" width="100">
+        <p th:if="${urlInfo.thumbnail == null}">設定なし</p>
+      </td>
       <td>
         <form th:action="@{/delete}" method="post">
           <input type="hidden" th:value="${urlInfo.id}" name="id"/>

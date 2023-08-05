@@ -40,8 +40,8 @@ public class IndexController {
       Element thumbnailElement = document.select("meta[property=og:image]").first();
 
       urlInfo.setTitle(titleElement != null ? titleElement.attr("content") : document.title());
-      urlInfo.setDescription(descriptionElement != null ? descriptionElement.attr("content") : "");
-      urlInfo.setThumbnail(thumbnailElement != null ? thumbnailElement.attr("content") : "");
+      urlInfo.setDescription(descriptionElement != null ? descriptionElement.attr("content") : null);
+      urlInfo.setThumbnail(thumbnailElement != null ? thumbnailElement.attr("content") : null);
 
       urlRepository.save(urlInfo);
     } catch (Exception e) {
