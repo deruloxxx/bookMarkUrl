@@ -1,6 +1,5 @@
 package com.example.bookMarkUrl.controller;
 
-import com.example.bookMarkUrl.entity.UrlInfo;
 import com.example.bookMarkUrl.repository.UrlInfoRepository;
 import com.example.bookMarkUrl.service.UrlInfoService;
 import org.jsoup.nodes.Document;
@@ -18,13 +17,13 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @WebMvcTest(UrlInfoController.class)
-class IndexControllerTest {
+class UrlInfoControllerTest {
   @Autowired
   private MockMvc mockMvc;
   @MockBean
-  private UrlInfoRepository urlRepository;
+  private UrlInfoRepository urlInfoRepository;
   @MockBean
-  private UrlInfoService urlScraperService;
+  private UrlInfoService urlInfoService;
   @Test
   public void shouldReturnTopPage() throws Exception {
     mockMvc.perform(MockMvcRequestBuilders.get("/"))
@@ -54,13 +53,13 @@ class IndexControllerTest {
     document.head().appendChild(thumbnailElement);
 
     // urlScraperServiceが呼ばれた時にDocumentオブジェクトを返す
-    Mockito.when(urlScraperService.connect(Mockito.anyString())).thenReturn(document);
+    Mockito.doNothing().when(urlInfoService).scrapeAndSaveUrl(Mockito.anyString());
 
-    mockMvc.perform(MockMvcRequestBuilders.post("/add").param("url", "http://example.com"))
+    mockMvc.perform(MockMvcRequestBuilders.post("/add").param("url", "https://example.com"))
         .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
         .andExpect(MockMvcResultMatchers.redirectedUrl("/"));
 
-    Mockito.verify(urlRepository, Mockito.times(1)).save(Mockito.any(UrlInfo.class));
+    Mockito.verify(urlInfoService, Mockito.times(1)).scrapeAndSaveUrl(Mockito.anyString());
   }
   @Test
   public void shouldDeleteUrlAndRedirect() throws Exception {
@@ -70,6 +69,6 @@ class IndexControllerTest {
         .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
         .andExpect(MockMvcResultMatchers.redirectedUrl("/"));
 
-    verify(urlRepository, times(1)).deleteById(idToDelete);
+    verify(urlInfoRepository, times(1)).deleteById(idToDelete);
   }
 }
