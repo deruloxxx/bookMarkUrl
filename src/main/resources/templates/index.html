@@ -23,7 +23,6 @@
       <td th:text="${urlInfo.id}"></td>
       <td th:text="${urlInfo.url}"></td>
       <td th:text="${urlInfo.title}"></td>
-      <td th:if="${urlInfo.description}" th:text="${urlInfo.description}"></td>
       <td th:text="${urlInfo.description != null ? urlInfo.description : '設定なし'}"></td>
       <td>
         <img th:if="${urlInfo.thumbnail != null}" th:src="${urlInfo.thumbnail}" width="100">
@@ -37,5 +36,6 @@
       </td>
     </tr>
   </table>
+  <pre th:text="${urlInfos}"></pre>
 </body>
 </html>
