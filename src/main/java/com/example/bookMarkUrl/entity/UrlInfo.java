@@ -1,13 +1,11 @@
 package com.example.bookMarkUrl.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Data
+@Table(name = "m_url_info")
 public class UrlInfo {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
