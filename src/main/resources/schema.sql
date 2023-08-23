@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS m_url_info (
 );
 
 CREATE TABLE IF NOT EXISTS m_user (
-  id VARCHAR(50) PRIMARY KEY,
+  user_id VARCHAR(50) PRIMARY KEY,
   name VARCHAR(50),
   password VARCHAR(60)
 );

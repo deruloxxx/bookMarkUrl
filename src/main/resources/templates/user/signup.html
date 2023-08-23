@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1>会員登録</h1>
-<form method="post" th:action="@{/register}" th:object="${mUser}">
+<form method="post" th:action="@{/user/signup}" th:object="${user}">
   メールアドレス: <input type="text" th:field="*{userId}"><br>
   パスワード: <input type="password" th:field="*{password}"><br>
   ユーザー名: <input type="text" th:field="*{name}"><br>
