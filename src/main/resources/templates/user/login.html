@@ -6,10 +6,11 @@
 </head>
 <body>
 <h1>ログインページ</h1>
-<form method="post" action="index.html" th:action="@{/login}">
-  ユーザー名: <input type="text" name="username"><br>
-  パスワード: <input type="password" name="password"><br>
+<form method="post" th:action="@{/user/login}">
+  メールアドレス: <input type="text" name="userId" required /><br>
+  パスワード: <input type="password" name="password" required /><br>
   <button type="submit">ログイン</button>
 </form>
+<a th:href="@{'/user/signup'}">ユーザー新規登録はこちら</a>
 </body>
 </html>

@@ -19,6 +19,16 @@ public class MUserController {
     return "user/login";
   }
 
+  @PostMapping("/user/login")
+  public String postUserLogin() {
+    return "redirect:/user/url";
+  }
+
+  @GetMapping("/user/url")
+  public String userUrl() {
+    return "user/url";
+  }
+
   @GetMapping("/user/signup")
   public String userSignUp(Model model) {
     model.addAttribute("user", new MUser());

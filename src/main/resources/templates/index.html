@@ -7,8 +7,8 @@
 <body>
   <h1>Book Mark Url</h1>
   <div>
-    <a href="/user/login">ログイン</a>
-    <a href="/user/signup">会員登録</a>
+    <a th:href="@{'/user/login'}">ログイン</a>
+    <a th:href="@{'/user/signup'}">会員登録</a>
   </div>
   <form th:action="@{/add}" method="post">
     <input type="text" name="url" placeholder="Enter URL here" required>
