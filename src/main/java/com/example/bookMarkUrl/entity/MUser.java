@@ -6,10 +6,10 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "m_user")
-public class User {
+public class MUser {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private String userId;
   private String name;
   private String password;
 }
