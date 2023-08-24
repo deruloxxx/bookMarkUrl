@@ -8,34 +8,36 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/user")
 public class MUserController {
   @Autowired
   private MUserService userService;
 
-  @GetMapping("/user/login")
+  @GetMapping("/login")
   public String userLogin(Model model) {
     return "user/login";
   }
 
-  @PostMapping("/user/login")
+  @PostMapping("/login")
   public String postUserLogin() {
-    return "redirect:/user/url";
+    return "redirect:/url";
   }
 
-  @GetMapping("/user/url")
+  @GetMapping("/url")
   public String userUrl() {
     return "user/url";
   }
 
-  @GetMapping("/user/signup")
+  @GetMapping("/signup")
   public String userSignUp(Model model) {
     model.addAttribute("user", new MUser());
     return "user/signup";
   }
 
-  @PostMapping("/user/signup")
+  @PostMapping("/signup")
   public String createUser(@ModelAttribute MUser user) {
     userService.createUser(user);
     return "redirect:/user/login";
