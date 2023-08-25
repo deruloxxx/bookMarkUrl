@@ -6,13 +6,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
@@ -22,6 +23,7 @@ public class SecurityConfig {
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
+
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.formLogin(login -> login
@@ -51,13 +53,24 @@ public class SecurityConfig {
       );
     return http.build();
   }
+
   @Bean
-  public InMemoryUserDetailsManager userDetailsService() {
-    UserDetails user = User
-      .withUsername("user")
-      .password(passwordEncoder().encode("user"))
-      .roles("USER")
-      .build();
-    return new InMemoryUserDetailsManager(user);
+  public UserDetailsManager users(DataSource dataSource) {
+    String authoritiesQuery = "select user_id, role from m_user where user_id = ?";
+    String usersQuery = "select user_id, password, 'true' as enabled from m_user where user_id = ?";
+
+    JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
+    users.setAuthoritiesByUsernameQuery(authoritiesQuery);
+    users.setUsersByUsernameQuery(usersQuery);
+    return users;
   }
+//  @Bean
+//  public InMemoryUserDetailsManager userDetailsService() {
+//    UserDetails user = User
+//      .withUsername("user")
+//      .password(passwordEncoder().encode("user"))
+//      .roles("USER")
+//      .build();
+//    return new InMemoryUserDetailsManager(user);
+//  }
 }
