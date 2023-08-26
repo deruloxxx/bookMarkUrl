@@ -17,16 +17,18 @@ import java.io.IOException;
 @Service
 public class UrlInfoService {
   @Autowired
-  private MUserRepository mUserRepository;
+  private MUserRepository userRepository;
+
   @Autowired
-  private UrlInfoRepository urlRepository;
+  private UrlInfoRepository urlInfoRepository;
+
   public Document connect(String url) throws IOException {
     return Jsoup.connect(url).get();
   }
 
   public void scrapeAndSaveUrl(String url) throws IOException {
     String currentUserId = SecurityContextHolder.getContext().getAuthentication().getName();
-    MUser currentUser = mUserRepository.findById(currentUserId)
+    MUser currentUser = userRepository.findById(currentUserId)
       .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
     UrlInfo urlInfo = new UrlInfo();
@@ -42,6 +44,6 @@ public class UrlInfoService {
     urlInfo.setDescription(descriptionElement != null ? descriptionElement.attr("content") : null);
     urlInfo.setThumbnail(thumbnailElement != null ? thumbnailElement.attr("content") : null);
 
-    urlRepository.save(urlInfo);
+    urlInfoRepository.save(urlInfo);
   }
 }

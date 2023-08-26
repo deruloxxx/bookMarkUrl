@@ -1,8 +1,14 @@
 package com.example.bookMarkUrl.controller;
 
 import com.example.bookMarkUrl.entity.MUser;
+import com.example.bookMarkUrl.entity.UrlInfo;
+import com.example.bookMarkUrl.repository.MUserRepository;
+import com.example.bookMarkUrl.repository.UrlInfoRepository;
 import com.example.bookMarkUrl.service.MUserService;
+import com.example.bookMarkUrl.service.UrlInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +21,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MUserController {
   @Autowired
   private MUserService userService;
+
+  @Autowired
+  private UrlInfoService urlInfoService;
+
+  @Autowired
+  private MUserRepository mUserRepository;
+
+  @Autowired
+  private UrlInfoRepository urlInfoRepository;
 
   @GetMapping("/login")
   public String userLogin(Model model) {
@@ -33,6 +48,14 @@ public class MUserController {
 
   @GetMapping("/url")
   public String userUrl(Model model) {
+    String currentUserId = SecurityContextHolder.getContext().getAuthentication().getName();
+
+    MUser currentUser = mUserRepository.findById(currentUserId)
+      .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    System.out.println("Current User ID: " + currentUserId);
+
+    model.addAttribute("currentUserId", currentUserId);
+    model.addAttribute("currentUserName", currentUser.getName());
     return "user/url";
   }
 
