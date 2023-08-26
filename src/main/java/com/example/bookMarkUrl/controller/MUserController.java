@@ -26,6 +26,11 @@ public class MUserController {
     return "redirect:/url";
   }
 
+  @PostMapping("/logout")
+  public String userLogout() {
+    return "redirect:/logout";
+  }
+
   @GetMapping("/url")
   public String userUrl() {
     return "user/url";
