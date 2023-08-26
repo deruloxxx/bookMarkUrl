@@ -1,6 +1,7 @@
 package com.example.bookMarkUrl.controller;
 
 import com.example.bookMarkUrl.entity.MUser;
+import com.example.bookMarkUrl.entity.UrlInfo;
 import com.example.bookMarkUrl.repository.MUserRepository;
 import com.example.bookMarkUrl.repository.UrlInfoRepository;
 import com.example.bookMarkUrl.service.MUserService;
@@ -15,11 +16,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/user")
 public class MUserController {
   @Autowired
-  private MUserService userService;
+  private MUserService mUserService;
 
   @Autowired
   private UrlInfoService urlInfoService;
@@ -49,12 +52,17 @@ public class MUserController {
   public String userUrl(Model model) {
     String currentUserId = SecurityContextHolder.getContext().getAuthentication().getName();
 
-    MUser currentUser = mUserRepository.findById(currentUserId)
-      .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-    System.out.println("Current User ID: " + currentUserId);
+//    MUser currentUser = mUserRepository.findById(currentUserId)
+//      .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+//
+//    System.out.println(currentUserId);
+//    System.out.println(currentUser);
+
+//    List<UrlInfo> urlInfos = mUserService.getUserUrls(currentUserId);
 
     model.addAttribute("currentUserId", currentUserId);
-    model.addAttribute("currentUserName", currentUser.getName());
+    model.addAttribute("currentUserName", currentUserId);
+//    model.addAttribute("urlInfos", urlInfos);
     return "user/url";
   }
 
@@ -66,7 +74,7 @@ public class MUserController {
 
   @PostMapping("/signup")
   public String createUser(@ModelAttribute MUser user) {
-    userService.createUser(user);
+    mUserService.createUser(user);
     return "redirect:/user/login";
   }
 }

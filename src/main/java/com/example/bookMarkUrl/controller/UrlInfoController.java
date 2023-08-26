@@ -1,6 +1,6 @@
 package com.example.bookMarkUrl.controller;
 
-import com.example.bookMarkUrl.repository.UrlInfoRepository;
+import com.example.bookMarkUrl.repository.MUrlInfoRepository;
 import com.example.bookMarkUrl.service.UrlInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class UrlInfoController {
   @Autowired
-  private UrlInfoRepository urlRepository;
+  private MUrlInfoRepository mUrlRepository;
   @Autowired
   private UrlInfoService urlInfoService;
 
-  public UrlInfoController(UrlInfoRepository urlInfoRepository) {
-    this.urlRepository = urlInfoRepository;
+  public UrlInfoController(MUrlInfoRepository mUrlInfoRepository) {
+    this.mUrlRepository = mUrlInfoRepository;
   }
   @GetMapping("/")
   public String index(Model model) {
-    model.addAttribute("urlInfos", urlRepository.findAll());
+    model.addAttribute("mUrlInfos", mUrlRepository.findAll());
     return "index";
   }
   @PostMapping("/add")
@@ -35,7 +35,7 @@ public class UrlInfoController {
   }
   @PostMapping("/delete")
   public String deleteUrl(@RequestParam Long id) {
-    urlRepository.deleteById(id);
+    mUrlRepository.deleteById(id);
     return "redirect:/";
   }
 }

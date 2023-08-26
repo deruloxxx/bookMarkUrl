@@ -23,18 +23,18 @@
       <th>Thumbnail</th>
       <th>Delete</th>
     </tr>
-    <tr th:each="urlInfo : ${urlInfos}">
-      <td th:text="${urlInfo.id}"></td>
-      <td th:text="${urlInfo.url}"></td>
-      <td th:text="${urlInfo.title}"></td>
-      <td th:text="${urlInfo.description != null ? urlInfo.description : '設定なし'}"></td>
+    <tr th:each="mUrlInfo : ${mUrlInfos}">
+      <td th:text="${mUrlInfo.id}"></td>
+      <td th:text="${mUrlInfo.url}"></td>
+      <td th:text="${mUrlInfo.title}"></td>
+      <td th:text="${mUrlInfo.description != null ? mUrlInfo.description : '設定なし'}"></td>
       <td>
-        <img th:if="${urlInfo.thumbnail != null}" th:src="${urlInfo.thumbnail}" width="100">
-        <p th:if="${urlInfo.thumbnail == null}">設定なし</p>
+        <img th:if="${mUrlInfo.thumbnail != null}" th:src="${mUrlInfo.thumbnail}" width="100">
+        <p th:if="${mUrlInfo.thumbnail == null}">設定なし</p>
       </td>
       <td>
         <form th:action="@{/delete}" method="post">
-          <input type="hidden" th:value="${urlInfo.id}" name="id"/>
+          <input type="hidden" th:value="${mUrlInfo.id}" name="id"/>
           <input type="submit" value="Delete"/>
         </form>
       </td>

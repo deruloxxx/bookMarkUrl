@@ -18,7 +18,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @WebMvcTest(UrlInfoController.class)
-class UrlInfoControllerTest {
+class MUrlInfoControllerTest {
   @Autowired
   private MockMvc mockMvc;
   @MockBean

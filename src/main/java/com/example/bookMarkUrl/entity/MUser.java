@@ -1,7 +1,10 @@
 package com.example.bookMarkUrl.entity;
 
 import jakarta.persistence.*;
+import jdk.jfr.Enabled;
 import lombok.Data;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -17,4 +20,7 @@ public class MUser {
   private String password;
   private String name;
   private String role;
+
+  @OneToMany(mappedBy = "mUser")
+  private List<UrlInfo> urlInfos;
 }
