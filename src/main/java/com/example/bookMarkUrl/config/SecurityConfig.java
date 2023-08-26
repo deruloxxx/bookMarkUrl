@@ -44,6 +44,8 @@ public class SecurityConfig {
         .requestMatchers("/user/login").permitAll()
         .requestMatchers("/user/signup").permitAll()
         .requestMatchers("/").permitAll()
+        .requestMatchers("/add").permitAll()
+        .requestMatchers("/delete").permitAll()
         .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
         .anyRequest().authenticated()
       )

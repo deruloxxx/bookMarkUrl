@@ -1,7 +1,6 @@
 package com.example.bookMarkUrl.service;
 
 import com.example.bookMarkUrl.entity.UrlInfo;
-import com.example.bookMarkUrl.repository.MUserRepository;
 import com.example.bookMarkUrl.repository.UrlInfoRepository;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -13,9 +12,6 @@ import java.io.IOException;
 
 @Service
 public class UrlInfoService {
-  @Autowired
-  private MUserRepository userRepository;
-
   @Autowired
   private UrlInfoRepository urlInfoRepository;
 

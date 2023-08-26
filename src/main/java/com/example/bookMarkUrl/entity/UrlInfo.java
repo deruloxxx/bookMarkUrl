@@ -10,11 +10,6 @@ public class UrlInfo {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id")
-  private MUser mUser;
-
   private String url;
   private String title;
   private String description;
