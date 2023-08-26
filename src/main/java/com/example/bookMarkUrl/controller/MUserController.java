@@ -1,7 +1,6 @@
 package com.example.bookMarkUrl.controller;
 
 import com.example.bookMarkUrl.entity.MUser;
-import com.example.bookMarkUrl.entity.UrlInfo;
 import com.example.bookMarkUrl.repository.MUserRepository;
 import com.example.bookMarkUrl.repository.UrlInfoRepository;
 import com.example.bookMarkUrl.service.MUserService;
