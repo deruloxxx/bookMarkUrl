@@ -23,7 +23,6 @@ public class MUserService {
   @Autowired
   private UrlInfoRepository urlInfoRepository;
 
-  @Transactional
   public List<UrlInfo> getUserUrls(String userId) {
     MUser user = mUserRepository.findByUserId(userId);
     if (user == null) {

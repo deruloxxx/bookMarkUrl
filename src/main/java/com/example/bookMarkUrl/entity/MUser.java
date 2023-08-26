@@ -21,6 +21,6 @@ public class MUser {
   private String name;
   private String role;
 
-  @OneToMany(mappedBy = "mUser")
+  @OneToMany(mappedBy = "mUser", cascade=CascadeType.ALL)
   private List<UrlInfo> urlInfos;
 }

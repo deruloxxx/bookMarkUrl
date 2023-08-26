@@ -51,18 +51,11 @@ public class MUserController {
   @GetMapping("/url")
   public String userUrl(Model model) {
     String currentUserId = SecurityContextHolder.getContext().getAuthentication().getName();
-
-//    MUser currentUser = mUserRepository.findById(currentUserId)
-//      .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-//
-//    System.out.println(currentUserId);
-//    System.out.println(currentUser);
-
-//    List<UrlInfo> urlInfos = mUserService.getUserUrls(currentUserId);
+    List<UrlInfo> urlInfos = mUserService.getUserUrls(currentUserId);
 
     model.addAttribute("currentUserId", currentUserId);
     model.addAttribute("currentUserName", currentUserId);
-//    model.addAttribute("urlInfos", urlInfos);
+    model.addAttribute("urlInfos", urlInfos);
     return "user/url";
   }
 
