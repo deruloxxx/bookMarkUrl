@@ -5,3 +5,6 @@ INSERT INTO m_url_info (id, url, title, description, thumbnail) VALUES
 INSERT INTO m_user (user_id, password, name, role) VALUES
 ('admin@example.com', '$2a$10$APeI3rBtAl558SHXVVjO9ef/Gu.5ojfFR7f.5p/h3qZ1STGAjHAXa', 'admin', 'ROLE_ADMIN'),
 ('user@example.com', '$2a$10$APeI3rBtAl558SHXVVjO9ef/Gu.5ojfFR7f.5p/h3qZ1STGAjHAXa', 'user', 'ROLE_USER');
+
+INSERT INTO t_url_info (user_id, url, title, description, thumbnail) VALUES
+('admin@example.com', 'https://www.example.com', 'Example Title', 'Example Description', 'https://www.example.com/thumbnail.jpg');

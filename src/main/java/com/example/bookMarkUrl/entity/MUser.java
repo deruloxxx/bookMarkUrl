@@ -12,6 +12,7 @@ public class MUser {
   @Id
   @Column(name = "user_id")
   private String userId;
+
   private String password;
   private String name;
   private String role;

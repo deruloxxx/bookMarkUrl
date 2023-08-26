@@ -32,7 +32,7 @@ public class MUserController {
   }
 
   @GetMapping("/url")
-  public String userUrl() {
+  public String userUrl(Model model) {
     return "user/url";
   }
 
