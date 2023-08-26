@@ -10,7 +10,7 @@
   <form th:action="@{/user/logout}" method="post">
     <input type="submit" value="Logout"/>
   </form>
-  <form th:action="@{/add}" method="post">
+  <form th:action="@{/user/add}" method="post">
     <input type="text" name="url" placeholder="Enter URL here" required>
     <input type="hidden" th:value="${currentUserId}" name="userId"/>
     <button type="submit">Add URL</button>

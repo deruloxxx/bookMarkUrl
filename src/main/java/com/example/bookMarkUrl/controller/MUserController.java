@@ -8,13 +8,9 @@ import com.example.bookMarkUrl.service.MUserService;
 import com.example.bookMarkUrl.service.UrlInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -57,6 +53,16 @@ public class MUserController {
     model.addAttribute("currentUserName", currentUserId);
     model.addAttribute("urlInfos", urlInfos);
     return "user/url";
+  }
+
+  @PostMapping("/add")
+  public String addUserUrl(@RequestParam String url, @RequestParam String userId) {
+    try {
+      urlInfoService.scrapeAndSaveUserUrl(url, userId);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return "redirect:/user/url";
   }
 
   @GetMapping("/signup")
