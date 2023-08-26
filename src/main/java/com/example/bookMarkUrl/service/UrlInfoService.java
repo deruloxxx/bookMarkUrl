@@ -1,11 +1,15 @@
 package com.example.bookMarkUrl.service;
 
+import com.example.bookMarkUrl.entity.MUser;
 import com.example.bookMarkUrl.entity.UrlInfo;
+import com.example.bookMarkUrl.repository.MUserRepository;
 import com.example.bookMarkUrl.repository.UrlInfoRepository;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -13,14 +17,21 @@ import java.io.IOException;
 @Service
 public class UrlInfoService {
   @Autowired
+  private MUserRepository mUserRepository;
+  @Autowired
   private UrlInfoRepository urlRepository;
   public Document connect(String url) throws IOException {
     return Jsoup.connect(url).get();
   }
 
   public void scrapeAndSaveUrl(String url) throws IOException {
+    String currentUserId = SecurityContextHolder.getContext().getAuthentication().getName();
+    MUser currentUser = mUserRepository.findById(currentUserId)
+      .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
     UrlInfo urlInfo = new UrlInfo();
     urlInfo.setUrl(url);
+    urlInfo.setMUser(currentUser);
 
     Document document = Jsoup.connect(url).get();
     Element titleElement = document.select("meta[property=og:title]").first();
