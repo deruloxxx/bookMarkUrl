@@ -37,4 +37,9 @@ public class MUserService {
     user.setRole("ROLE_USER");
     return mUserRepository.save(user);
   }
+
+  @Transactional
+  public void deleteUser(String userId) {
+    mUserRepository.deleteById(userId);
+  }
 }

@@ -13,6 +13,10 @@
       <form th:action="@{/user/logout}" method="post" class="mb-4">
         <button type="submit" class="btn btn-danger">Logout</button>
       </form>
+      <form th:action="@{/user/delete}" method="post" class="mb-4">
+        <input type="hidden" th:value="${currentUserId}" name="deleteUserId" />
+        <button type="submit" class="btn btn-danger">User Delete</button>
+      </form>
       <form th:action="@{/user/add}" method="post" class="mb-4">
         <div class="input-group">
           <input type="text" class="form-control" name="url" placeholder="Enter URL here" required />
@@ -43,7 +47,7 @@
                 <p th:if="${urlInfo.thumbnail == null}">設定なし</p>
               </td>
               <td>
-                <form th:action="@{/user/delete}" method="post">
+                <form th:action="@{/user/url/delete}" method="post">
                   <input type="hidden" th:value="${urlInfo.id}" name="id" />
                   <input type="submit" value="Delete" class="btn btn-danger" />
                 </form>
