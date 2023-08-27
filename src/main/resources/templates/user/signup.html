@@ -2,14 +2,32 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <title>User Registration</title>
+    <meta charset="UTF-8" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
   </head>
   <body>
-    <h1>会員登録</h1>
-    <form method="post" th:action="@{/user/signup}" th:object="${user}">
-      メールアドレス: <input type="text" th:field="*{userId}" /><br />
-      パスワード: <input type="password" th:field="*{password}" /><br />
-      ユーザー名: <input type="text" th:field="*{name}" /><br />
-      <button type="submit">登録する</button>
-    </form>
+    <div class="container">
+      <h1 class="text-center my-5">会員登録</h1>
+      <form method="post" th:action="@{/user/signup}" th:object="${user}" class="mb-5">
+        <div class="form-group mb-4">
+          <label for="userId" class="mb-2">メールアドレス:</label>
+          <input type="text" id="userId" th:field="*{userId}" class="form-control" />
+        </div>
+        <div class="form-group mb-4">
+          <label for="password" class="mb-2">パスワード:</label>
+          <input type="password" id="password" th:field="*{password}" class="form-control" />
+        </div>
+        <div class="form-group mb-4">
+          <label for="name" class="mb-2">ユーザー名:</label>
+          <input type="text" id="name" th:field="*{name}" class="form-control" />
+        </div>
+        <div class="mb-4">
+          <button type="submit" class="btn btn-primary">登録する</button>
+        </div>
+      </form>
+    </div>
+    <!-- Bootstrap JS (optional) -->
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" defer></script>
   </body>
 </html>

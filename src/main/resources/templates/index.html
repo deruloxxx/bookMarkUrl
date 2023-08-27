@@ -3,42 +3,52 @@
   <head>
     <title>Book Mark Url</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
   </head>
   <body>
-    <h1>Book Mark Url</h1>
-    <div>
-      <a th:href="@{'/user/login'}">ログイン</a>
-      <a th:href="@{'/user/signup'}">会員登録</a>
+    <div class="container">
+      <h1 class="text-center my-5">Book Mark Url</h1>
+      <div class="d-flex flex-column flex-md-row justify-content-end mb-3">
+        <a class="btn btn-primary mb-2 mb-md-0 mx-1" th:href="@{'/user/login'}">ログイン</a>
+        <a class="btn btn-secondary mx-1" th:href="@{'/user/signup'}">会員登録</a>
+      </div>
+      <form th:action="@{/add}" method="post" class="mb-4">
+        <div class="input-group">
+          <input type="text" class="form-control" name="url" placeholder="Enter URL here" required />
+          <button type="submit" class="btn btn-success">Add URL</button>
+        </div>
+      </form>
+      <table class="table table-responsive">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>URL</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Thumbnail</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="mUrlInfo : ${mUrlInfos}">
+            <td th:text="${mUrlInfo.id}"></td>
+            <td th:text="${mUrlInfo.url}"></td>
+            <td th:text="${mUrlInfo.title}"></td>
+            <td th:text="${mUrlInfo.description != null ? mUrlInfo.description : '設定なし'}"></td>
+            <td>
+              <img th:if="${mUrlInfo.thumbnail != null}" th:src="${mUrlInfo.thumbnail}" class="img-fluid" width="100" />
+              <p th:if="${mUrlInfo.thumbnail == null}">設定なし</p>
+            </td>
+            <td>
+              <form th:action="@{/delete}" method="post">
+                <input type="hidden" th:value="${mUrlInfo.id}" name="id" />
+                <input type="submit" value="Delete" class="btn btn-danger" />
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <form th:action="@{/add}" method="post">
-      <input type="text" name="url" placeholder="Enter URL here" required />
-      <button type="submit">Add URL</button>
-    </form>
-    <table>
-      <tr>
-        <th>ID</th>
-        <th>URL</th>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Thumbnail</th>
-        <th>Delete</th>
-      </tr>
-      <tr th:each="mUrlInfo : ${mUrlInfos}">
-        <td th:text="${mUrlInfo.id}"></td>
-        <td th:text="${mUrlInfo.url}"></td>
-        <td th:text="${mUrlInfo.title}"></td>
-        <td th:text="${mUrlInfo.description != null ? mUrlInfo.description : '設定なし'}"></td>
-        <td>
-          <img th:if="${mUrlInfo.thumbnail != null}" th:src="${mUrlInfo.thumbnail}" width="100" />
-          <p th:if="${mUrlInfo.thumbnail == null}">設定なし</p>
-        </td>
-        <td>
-          <form th:action="@{/delete}" method="post">
-            <input type="hidden" th:value="${mUrlInfo.id}" name="id" />
-            <input type="submit" value="Delete" />
-          </form>
-        </td>
-      </tr>
-    </table>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" defer></script>
   </body>
 </html>
