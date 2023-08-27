@@ -1,44 +1,44 @@
-<!DOCTYPE HTML>
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <title>Book Mark Url</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-  <h1>Book Mark Url</h1>
-  <div>
-    <a th:href="@{'/user/login'}">ログイン</a>
-    <a th:href="@{'/user/signup'}">会員登録</a>
-  </div>
-  <form th:action="@{/add}" method="post">
-    <input type="text" name="url" placeholder="Enter URL here" required>
-    <button type="submit">Add URL</button>
-  </form>
-  <table>
-    <tr>
-      <th>ID</th>
-      <th>URL</th>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Thumbnail</th>
-      <th>Delete</th>
-    </tr>
-    <tr th:each="mUrlInfo : ${mUrlInfos}">
-      <td th:text="${mUrlInfo.id}"></td>
-      <td th:text="${mUrlInfo.url}"></td>
-      <td th:text="${mUrlInfo.title}"></td>
-      <td th:text="${mUrlInfo.description != null ? mUrlInfo.description : '設定なし'}"></td>
-      <td>
-        <img th:if="${mUrlInfo.thumbnail != null}" th:src="${mUrlInfo.thumbnail}" width="100">
-        <p th:if="${mUrlInfo.thumbnail == null}">設定なし</p>
-      </td>
-      <td>
-        <form th:action="@{/delete}" method="post">
-          <input type="hidden" th:value="${mUrlInfo.id}" name="id"/>
-          <input type="submit" value="Delete"/>
-        </form>
-      </td>
-    </tr>
-  </table>
-</body>
+  <head>
+    <title>Book Mark Url</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <h1>Book Mark Url</h1>
+    <div>
+      <a th:href="@{'/user/login'}">ログイン</a>
+      <a th:href="@{'/user/signup'}">会員登録</a>
+    </div>
+    <form th:action="@{/add}" method="post">
+      <input type="text" name="url" placeholder="Enter URL here" required />
+      <button type="submit">Add URL</button>
+    </form>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>URL</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Thumbnail</th>
+        <th>Delete</th>
+      </tr>
+      <tr th:each="mUrlInfo : ${mUrlInfos}">
+        <td th:text="${mUrlInfo.id}"></td>
+        <td th:text="${mUrlInfo.url}"></td>
+        <td th:text="${mUrlInfo.title}"></td>
+        <td th:text="${mUrlInfo.description != null ? mUrlInfo.description : '設定なし'}"></td>
+        <td>
+          <img th:if="${mUrlInfo.thumbnail != null}" th:src="${mUrlInfo.thumbnail}" width="100" />
+          <p th:if="${mUrlInfo.thumbnail == null}">設定なし</p>
+        </td>
+        <td>
+          <form th:action="@{/delete}" method="post">
+            <input type="hidden" th:value="${mUrlInfo.id}" name="id" />
+            <input type="submit" value="Delete" />
+          </form>
+        </td>
+      </tr>
+    </table>
+  </body>
 </html>

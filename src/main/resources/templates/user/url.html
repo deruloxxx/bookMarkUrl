@@ -1,45 +1,45 @@
-<!DOCTYPE HTML>
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <title>Book Mark Url一覧</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-  <h1>Book Mark Url一覧</h1>
-  <p>Logged in as: <span th:text="${currentUserName}"></span></p>
-  <form th:action="@{/user/logout}" method="post">
-    <input type="submit" value="Logout"/>
-  </form>
-  <form th:action="@{/user/add}" method="post">
-    <input type="text" name="url" placeholder="Enter URL here" required>
-    <input type="hidden" th:value="${currentUserId}" name="userId"/>
-    <button type="submit">Add URL</button>
-  </form>
-  <table>
-    <tr>
-      <th>ID</th>
-      <th>URL</th>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Thumbnail</th>
-      <th>Delete</th>
-    </tr>
-    <tr th:each="urlInfo : ${urlInfos}">
-      <td th:text="${urlInfo.id}"></td>
-      <td th:text="${urlInfo.url}"></td>
-      <td th:text="${urlInfo.title}"></td>
-      <td th:text="${urlInfo.description != null ? urlInfo.description : '設定なし'}"></td>
-      <td>
-        <img th:if="${urlInfo.thumbnail != null}" th:src="${urlInfo.thumbnail}" width="100">
-        <p th:if="${urlInfo.thumbnail == null}">設定なし</p>
-      </td>
-      <td>
-        <form th:action="@{/delete}" method="post">
-          <input type="hidden" th:value="${urlInfo.id}" name="id"/>
-          <input type="submit" value="Delete"/>
-        </form>
-      </td>
-    </tr>
-  </table>
-</body>
+  <head>
+    <title>Book Mark Url一覧</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <h1>Book Mark Url一覧</h1>
+    <p>Logged in as: <span th:text="${currentUserName}"></span></p>
+    <form th:action="@{/user/logout}" method="post">
+      <input type="submit" value="Logout" />
+    </form>
+    <form th:action="@{/user/add}" method="post">
+      <input type="text" name="url" placeholder="Enter URL here" required />
+      <input type="hidden" th:value="${currentUserId}" name="userId" />
+      <button type="submit">Add URL</button>
+    </form>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>URL</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Thumbnail</th>
+        <th>Delete</th>
+      </tr>
+      <tr th:each="urlInfo : ${urlInfos}">
+        <td th:text="${urlInfo.id}"></td>
+        <td th:text="${urlInfo.url}"></td>
+        <td th:text="${urlInfo.title}"></td>
+        <td th:text="${urlInfo.description != null ? urlInfo.description : '設定なし'}"></td>
+        <td>
+          <img th:if="${urlInfo.thumbnail != null}" th:src="${urlInfo.thumbnail}" width="100" />
+          <p th:if="${urlInfo.thumbnail == null}">設定なし</p>
+        </td>
+        <td>
+          <form th:action="@{/delete}" method="post">
+            <input type="hidden" th:value="${urlInfo.id}" name="id" />
+            <input type="submit" value="Delete" />
+          </form>
+        </td>
+      </tr>
+    </table>
+  </body>
 </html>

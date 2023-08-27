@@ -1,15 +1,15 @@
 package com.example.bookMarkUrl.entity;
 
 import jakarta.persistence.*;
+import java.util.List;
 import jdk.jfr.Enabled;
 import lombok.Data;
-
-import java.util.List;
 
 @Entity
 @Data
 @Table(name = "m_user")
 public class MUser {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -21,6 +21,6 @@ public class MUser {
   private String name;
   private String role;
 
-  @OneToMany(mappedBy = "mUser", cascade=CascadeType.ALL)
+  @OneToMany(mappedBy = "mUser", cascade = CascadeType.ALL)
   private List<UrlInfo> urlInfos;
 }

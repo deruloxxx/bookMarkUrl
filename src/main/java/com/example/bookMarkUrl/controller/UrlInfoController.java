@@ -11,19 +11,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UrlInfoController {
+
   @Autowired
   private MUrlInfoRepository mUrlRepository;
+
   @Autowired
   private UrlInfoService urlInfoService;
 
   public UrlInfoController(MUrlInfoRepository mUrlInfoRepository) {
     this.mUrlRepository = mUrlInfoRepository;
   }
+
   @GetMapping("/")
   public String index(Model model) {
     model.addAttribute("mUrlInfos", mUrlRepository.findAll());
     return "index";
   }
+
   @PostMapping("/add")
   public String addUrl(@RequestParam String url) {
     try {
@@ -33,6 +37,7 @@ public class UrlInfoController {
     }
     return "redirect:/";
   }
+
   @PostMapping("/delete")
   public String deleteUrl(@RequestParam Long id) {
     mUrlRepository.deleteById(id);

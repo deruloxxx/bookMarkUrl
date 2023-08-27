@@ -1,5 +1,8 @@
 package com.example.bookMarkUrl.controller;
 
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 import com.example.bookMarkUrl.repository.UrlInfoRepository;
 import com.example.bookMarkUrl.service.UrlInfoService;
 import org.jsoup.nodes.Document;
@@ -14,27 +17,27 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
 @WebMvcTest(UrlInfoController.class)
 class MUrlInfoControllerTest {
+
   @Autowired
   private MockMvc mockMvc;
+
   @MockBean
   private UrlInfoRepository urlInfoRepository;
+
   @MockBean
   private UrlInfoService urlInfoService;
+
   @Test
   @DisplayName("TOPページが表示される")
   public void shouldReturnTopPage() throws Exception {
-    mockMvc.perform(MockMvcRequestBuilders.get("/"))
-        .andExpect(MockMvcResultMatchers.status().isOk());
+    mockMvc.perform(MockMvcRequestBuilders.get("/")).andExpect(MockMvcResultMatchers.status().isOk());
   }
+
   @Test
   @DisplayName("URLを追加することができる")
   public void shouldAddUrl() throws Exception {
-
     // HTMLドキュメントオブジェクトの作成
     Document document = new Document("");
     // タイトルの要素の追加
@@ -58,9 +61,10 @@ class MUrlInfoControllerTest {
     // urlScraperServiceが呼ばれた時にDocumentオブジェクトを返す
     Mockito.doNothing().when(urlInfoService).scrapeAndSaveUrl(Mockito.anyString());
 
-    mockMvc.perform(MockMvcRequestBuilders.post("/add").param("url", "https://example.com"))
-        .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
-        .andExpect(MockMvcResultMatchers.redirectedUrl("/"));
+    mockMvc
+      .perform(MockMvcRequestBuilders.post("/add").param("url", "https://example.com"))
+      .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+      .andExpect(MockMvcResultMatchers.redirectedUrl("/"));
 
     Mockito.verify(urlInfoService, Mockito.times(1)).scrapeAndSaveUrl(Mockito.anyString());
   }
@@ -74,9 +78,10 @@ class MUrlInfoControllerTest {
   public void shouldDeleteUrlAndRedirect() throws Exception {
     Long idToDelete = 1L;
 
-    mockMvc.perform(MockMvcRequestBuilders.post("/delete").param("id", idToDelete.toString()))
-        .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
-        .andExpect(MockMvcResultMatchers.redirectedUrl("/"));
+    mockMvc
+      .perform(MockMvcRequestBuilders.post("/delete").param("id", idToDelete.toString()))
+      .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+      .andExpect(MockMvcResultMatchers.redirectedUrl("/"));
 
     verify(urlInfoRepository, times(1)).deleteById(idToDelete);
   }

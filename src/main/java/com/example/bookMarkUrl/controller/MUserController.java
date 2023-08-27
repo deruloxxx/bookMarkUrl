@@ -6,17 +6,17 @@ import com.example.bookMarkUrl.repository.MUserRepository;
 import com.example.bookMarkUrl.repository.UrlInfoRepository;
 import com.example.bookMarkUrl.service.MUserService;
 import com.example.bookMarkUrl.service.UrlInfoService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/user")
 public class MUserController {
+
   @Autowired
   private MUserService mUserService;
 

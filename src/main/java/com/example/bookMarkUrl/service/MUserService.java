@@ -5,15 +5,15 @@ import com.example.bookMarkUrl.entity.UrlInfo;
 import com.example.bookMarkUrl.repository.MUserRepository;
 import com.example.bookMarkUrl.repository.UrlInfoRepository;
 import jakarta.transaction.Transactional;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class MUserService {
+
   @Autowired
   private PasswordEncoder passwordEncoder;
 

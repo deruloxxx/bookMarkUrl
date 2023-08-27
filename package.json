@@ -1,0 +1,23 @@
+{
+  "name": "bookmarkurl",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "chevrotain": "^6.5.0",
+    "java-parser": "^2.0.5",
+    "lodash": "^4.17.21",
+    "regexp-to-ast": "^0.4.0"
+  },
+  "scripts": {
+    "format": "prettier --write 'src/**/*.html' && prettier --write 'src/**/*.java'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "^3.0.2",
+    "prettier-plugin-java": "^2.3.0"
+  }
+}

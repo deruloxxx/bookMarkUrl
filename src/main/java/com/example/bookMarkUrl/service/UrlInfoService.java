@@ -6,24 +6,24 @@ import com.example.bookMarkUrl.entity.UrlInfo;
 import com.example.bookMarkUrl.repository.MUrlInfoRepository;
 import com.example.bookMarkUrl.repository.MUserRepository;
 import com.example.bookMarkUrl.repository.UrlInfoRepository;
+import java.io.IOException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-
 @Service
 public class UrlInfoService {
+
   @Autowired
   private MUrlInfoRepository mUrlInfoRepository;
+
   @Autowired
   private UrlInfoRepository urlInfoRepository;
 
   @Autowired
   private MUserRepository mUserRepository;
-
 
   public Document connect(String url) throws IOException {
     return Jsoup.connect(url).get();

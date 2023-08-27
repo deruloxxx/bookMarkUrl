@@ -1,16 +1,16 @@
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <title>ログインページ</title>
-  <meta charset="UTF-8">
-</head>
-<body>
-<h1>ログインページ</h1>
-<form method="post" th:action="@{/user/login}">
-  メールアドレス: <input type="text" name="userId" required /><br>
-  パスワード: <input type="password" name="password" required /><br>
-  <input type="submit" value="ログイン" />
-</form>
-<a th:href="@{'/user/signup'}">ユーザー新規登録はこちら</a>
-</body>
+  <head>
+    <title>ログインページ</title>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <h1>ログインページ</h1>
+    <form method="post" th:action="@{/user/login}">
+      メールアドレス: <input type="text" name="userId" required /><br />
+      パスワード: <input type="password" name="password" required /><br />
+      <input type="submit" value="ログイン" />
+    </form>
+    <a th:href="@{'/user/signup'}">ユーザー新規登録はこちら</a>
+  </body>
 </html>

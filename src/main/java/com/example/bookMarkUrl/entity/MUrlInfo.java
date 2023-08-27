@@ -7,9 +7,11 @@ import lombok.Data;
 @Data
 @Table(name = "m_url_info")
 public class MUrlInfo {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
   private String url;
   private String title;
   private String description;
