@@ -76,4 +76,10 @@ public class MUserController {
     mUserService.createUser(user);
     return "redirect:/user/login";
   }
+
+  @PostMapping("/delete")
+  public String deleteUrl(@RequestParam Long id) {
+    urlInfoRepository.deleteById(id);
+    return "redirect:/user/url";
+  }
 }

@@ -43,7 +43,7 @@
                 <p th:if="${urlInfo.thumbnail == null}">設定なし</p>
               </td>
               <td>
-                <form th:action="@{/delete}" method="post">
+                <form th:action="@{/user/delete}" method="post">
                   <input type="hidden" th:value="${urlInfo.id}" name="id" />
                   <input type="submit" value="Delete" class="btn btn-danger" />
                 </form>
