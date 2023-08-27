@@ -11,7 +11,7 @@
       <h1 class="text-center text-danger my-5" th:text="${status}+' - '+${error}"></h1>
       <p class="mb-4" th:text="${message}"></p>
       <p class="mb-4">ログイン画面に戻ってください</p>
-      <form th:action="@{/logout}" method="post">
+      <form th:action="@{/user/logout}" method="post">
         <button class="btn btn-link" type="submit">ログイン画面に戻る</button>
       </form>
     </div>

@@ -9,8 +9,7 @@
   <body>
     <div class="container">
       <h1 class="text-center text-warning my-5" th:text="${status}+' - '+${error}"></h1>
-      <p class="mb-4">これは、404エラーの専用ページです</p>
-      <form th:action="@{/logout}" method="post">
+      <form th:action="@{/user/logout}" method="post" class="text-center">
         <button class="btn btn-link" type="submit">ログイン画面に戻る</button>
       </form>
     </div>
