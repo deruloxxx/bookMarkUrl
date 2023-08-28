@@ -1,14 +1,14 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <title>Book Mark Url一覧</title>
+    <title>Book Mark Url List</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
   </head>
   <body>
     <div class="container">
-      <h1 class="text-center my-5">Book Mark Url一覧</h1>
+      <h1 class="text-center my-5">Book Mark Url List</h1>
       <p class="mb-4">Logged in as: <span class="font-weight-bold" th:text="${currentUserName}"></span></p>
       <form th:action="@{/user/logout}" method="post" class="mb-4">
         <button type="submit" class="btn btn-danger">Logout</button>
