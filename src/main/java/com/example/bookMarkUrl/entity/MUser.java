@@ -11,10 +11,10 @@ import lombok.Data;
 public class MUser {
 
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id
   private Long id;
 
-  @Id
-  @Column(name = "user_id")
+  @Column(name = "user_id", unique = true)
   private String userId;
 
   private String password;

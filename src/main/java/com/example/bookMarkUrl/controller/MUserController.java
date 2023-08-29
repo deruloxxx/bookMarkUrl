@@ -7,6 +7,8 @@ import com.example.bookMarkUrl.repository.UrlInfoRepository;
 import com.example.bookMarkUrl.service.MUserService;
 import com.example.bookMarkUrl.service.UrlInfoService;
 import java.util.List;
+
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -72,7 +74,11 @@ public class MUserController {
   }
 
   @PostMapping("/signup")
-  public String createUser(@ModelAttribute MUser user) {
+  public String createUser(@ModelAttribute MUser user, Model model) {
+    MUser existingUser = mUserRepository.findByUserId(user.getUserId());
+    if (existingUser != null) {
+      return "redirect:/user/signup?error=true";
+    }
     mUserService.createUser(user);
     return "redirect:/user/login";
   }

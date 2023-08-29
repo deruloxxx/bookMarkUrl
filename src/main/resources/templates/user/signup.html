@@ -9,6 +9,9 @@
   <body>
     <div class="container">
       <h1 class="text-center my-5">会員登録</h1>
+      <div th:if="${param.error}" class="alert alert-danger" role="alert">
+        <p>このメールアドレスはすでに使用されています</p>
+      </div>
       <form method="post" th:action="@{/user/signup}" th:object="${user}" class="mb-5">
         <div class="form-group mb-4">
           <label for="userId" class="mb-2">メールアドレス:</label>
