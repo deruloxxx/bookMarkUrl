@@ -1,12 +1,13 @@
 package com.example.bookMarkUrl.entity;
 
+import com.example.bookMarkUrl.service.interfaces.UrlScrape;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Data
 @Table(name = "m_url_info")
-public class MUrlInfo {
+public class MUrlScrapeInfo implements UrlScrape {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

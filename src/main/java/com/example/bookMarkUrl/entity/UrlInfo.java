@@ -1,5 +1,6 @@
 package com.example.bookMarkUrl.entity;
 
+import com.example.bookMarkUrl.service.interfaces.UrlScrape;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import lombok.Data;
@@ -7,7 +8,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "t_url_info")
-public class UrlInfo implements Serializable {
+public class UrlInfo implements Serializable, UrlScrape {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

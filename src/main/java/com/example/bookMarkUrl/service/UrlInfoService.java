@@ -1,12 +1,14 @@
 package com.example.bookMarkUrl.service;
 
-import com.example.bookMarkUrl.entity.MUrlInfo;
+import com.example.bookMarkUrl.entity.MUrlScrapeInfo;
 import com.example.bookMarkUrl.entity.MUser;
 import com.example.bookMarkUrl.entity.UrlInfo;
 import com.example.bookMarkUrl.repository.MUrlInfoRepository;
 import com.example.bookMarkUrl.repository.MUserRepository;
 import com.example.bookMarkUrl.repository.UrlInfoRepository;
 import java.io.IOException;
+
+import com.example.bookMarkUrl.service.interfaces.UrlScrape;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -35,40 +37,38 @@ public class UrlInfoService {
     return Jsoup.connect(url).get();
   }
 
+  private void scrapeUrlInfo(Document document, UrlScrape urlScrape) {
+    Element titleElement = document.select("meta[property=og:title]").first();
+    Element descriptionElement = document.select("meta[property=og:description]").first();
+    Element thumbnailElement = document.select("meta[property=og:image]").first();
+
+    urlScrape.setTitle(titleElement != null ? titleElement.attr("content") : document.title());
+    urlScrape.setDescription(descriptionElement != null ? descriptionElement.attr("content") : null);
+    urlScrape.setThumbnail(thumbnailElement != null ? thumbnailElement.attr("content") : null);
+  }
+
   public void scrapeAndSaveUserUrl(String url, String userId) throws IOException {
-    UrlInfo UrlInfo = new UrlInfo();
-    UrlInfo.setUrl(url);
+    UrlInfo urlInfo = new UrlInfo();
+    urlInfo.setUrl(url);
 
     MUser mUser = mUserRepository.findByUserId(userId);
     if (mUser != null) {
-      UrlInfo.setMUser(mUser); // mUser エンティティをセット
+      urlInfo.setMUser(mUser);
     }
 
     Document document = Jsoup.connect(url).get();
-    Element titleElement = document.select("meta[property=og:title]").first();
-    Element descriptionElement = document.select("meta[property=og:description]").first();
-    Element thumbnailElement = document.select("meta[property=og:image]").first();
+    scrapeUrlInfo(document, urlInfo);
 
-    UrlInfo.setTitle(titleElement != null ? titleElement.attr("content") : document.title());
-    UrlInfo.setDescription(descriptionElement != null ? descriptionElement.attr("content") : null);
-    UrlInfo.setThumbnail(thumbnailElement != null ? thumbnailElement.attr("content") : null);
-
-    urlInfoRepository.save(UrlInfo);
+    urlInfoRepository.save(urlInfo);
   }
 
   public void scrapeAndSaveUrl(String url) throws IOException {
-    MUrlInfo MUrlInfo = new MUrlInfo();
-    MUrlInfo.setUrl(url);
+    MUrlScrapeInfo mUrlInfo = new MUrlScrapeInfo();
+    mUrlInfo.setUrl(url);
 
     Document document = Jsoup.connect(url).get();
-    Element titleElement = document.select("meta[property=og:title]").first();
-    Element descriptionElement = document.select("meta[property=og:description]").first();
-    Element thumbnailElement = document.select("meta[property=og:image]").first();
+    scrapeUrlInfo(document, mUrlInfo);
 
-    MUrlInfo.setTitle(titleElement != null ? titleElement.attr("content") : document.title());
-    MUrlInfo.setDescription(descriptionElement != null ? descriptionElement.attr("content") : null);
-    MUrlInfo.setThumbnail(thumbnailElement != null ? thumbnailElement.attr("content") : null);
-
-    mUrlInfoRepository.save(MUrlInfo);
+    mUrlInfoRepository.save(mUrlInfo);
   }
 }
