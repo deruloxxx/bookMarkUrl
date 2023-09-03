@@ -8,6 +8,9 @@
   <body>
     <div class="container">
       <h1 class="text-center my-5">Book Mark Url</h1>
+      <div th:if="${errorMessage != null}" class="alert alert-danger" role="alert">
+        <p th:text="${errorMessage}"></p>
+      </div>
       <div class="d-flex flex-column flex-md-row justify-content-end mb-3">
         <a class="btn btn-primary mb-2 mb-md-0 mx-1" th:href="@{'/user/login'}">ログイン</a>
         <a class="btn btn-secondary mx-1" th:href="@{'/user/signup'}">会員登録</a>

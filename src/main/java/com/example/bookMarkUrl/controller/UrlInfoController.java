@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class UrlInfoController {
@@ -28,18 +29,28 @@ public class UrlInfoController {
   }
 
   @PostMapping("/add")
-  public String addUrl(@RequestParam String url) {
+  public String addUrl(@RequestParam String url, RedirectAttributes redirectAttributes) {
     try {
       urlInfoService.scrapeAndSaveUrl(url);
     } catch (Exception e) {
       e.printStackTrace();
+
+      redirectAttributes.addFlashAttribute("errorMessage", "Failed to add URL. Please try again.");
+      return "redirect:/";
     }
     return "redirect:/";
   }
 
   @PostMapping("/delete")
-  public String deleteUrl(@RequestParam Long id) {
-    mUrlInfoRepository.deleteById(id);
+  public String deleteUrl(@RequestParam Long id, RedirectAttributes redirectAttributes) {
+    try {
+      mUrlInfoRepository.deleteById(id);
+    } catch (Exception e) {
+      e.printStackTrace();
+
+      redirectAttributes.addFlashAttribute("errorMessage", "Failed to delete URL. Please try again.");
+      return "redirect:/";
+    }
     return "redirect:/";
   }
 }
