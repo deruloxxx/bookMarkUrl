@@ -9,6 +9,9 @@
   <body>
     <div class="container">
       <h1 class="text-center my-5">Book Mark Url List</h1>
+      <div th:if="${validationErrors}" class="alert alert-danger" role="alert">
+        <p th:text="${validationErrors}"></p>
+      </div>
       <p class="mb-4">Logged in as: <span class="font-weight-bold" th:text="${currentUserName}"></span></p>
       <form th:action="@{/user/logout}" method="post" class="mb-4">
         <button type="submit" class="btn btn-danger">Logout</button>

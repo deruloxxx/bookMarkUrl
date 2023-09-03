@@ -1,11 +1,10 @@
 package com.example.bookMarkUrl.entity;
 
 import jakarta.persistence.*;
-import java.util.List;
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import java.util.List;
 import lombok.Data;
 
 @Entity
@@ -24,6 +23,7 @@ public class MUser {
   @Size(min = 7, message = "パスワードは7文字以上である必要があります")
   @Pattern(regexp = "[A-Za-z0-9]+", message = "パスワードは半角英数字である必要があります")
   private String password;
+
   private String name;
   private String role;
 

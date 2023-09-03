@@ -6,9 +6,8 @@ import com.example.bookMarkUrl.repository.MUserRepository;
 import com.example.bookMarkUrl.repository.UrlInfoRepository;
 import com.example.bookMarkUrl.service.MUserService;
 import com.example.bookMarkUrl.service.UrlInfoService;
-import java.util.List;
-
 import jakarta.validation.Valid;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -83,7 +82,12 @@ public class MUserController {
   }
 
   @PostMapping("/signup")
-  public String createUser(@Valid @ModelAttribute MUser user, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+  public String createUser(
+    @Valid @ModelAttribute MUser user,
+    BindingResult bindingResult,
+    Model model,
+    RedirectAttributes redirectAttributes
+  ) {
     if (bindingResult.hasErrors()) {
       redirectAttributes.addFlashAttribute("validationErrors", "正しいメールアドレスを入力してください");
       return "redirect:/user/signup";
@@ -94,19 +98,38 @@ public class MUserController {
       redirectAttributes.addFlashAttribute("validationErrors", "このメールアドレスはすでに使用されています。");
       return "redirect:/user/signup";
     }
-    mUserService.createUser(user);
+    try {
+      mUserService.createUser(user);
+    } catch (Exception e) {
+      redirectAttributes.addFlashAttribute("errorMessage", "Failed to SignUp User. Please try again.");
+      return "redirect:/user/signup";
+    }
     return "redirect:/user/login";
   }
 
   @PostMapping("/delete")
-  public String deleteUser(@RequestParam String deleteUserId) {
-    mUserService.deleteUser(deleteUserId);
+  public String deleteUser(@RequestParam String deleteUserId, RedirectAttributes redirectAttributes) {
+    try {
+      mUserService.deleteUser(deleteUserId);
+    } catch (Exception e) {
+      e.printStackTrace();
+
+      redirectAttributes.addFlashAttribute("errorMessage", "Failed to delete User. Please try again.");
+      return "redirect:/user/url";
+    }
     return "redirect:/user/login";
   }
 
   @PostMapping("/url/delete")
-  public String deleteUrl(@RequestParam Long id) {
-    urlInfoRepository.deleteById(id);
+  public String deleteUrl(@RequestParam Long id, RedirectAttributes redirectAttributes) {
+    try {
+      urlInfoRepository.deleteById(id);
+    } catch (Exception e) {
+      e.printStackTrace();
+
+      redirectAttributes.addFlashAttribute("errorMessage", "Failed to delete URL. Please try again.");
+      return "redirect:/user/url";
+    }
     return "redirect:/user/url";
   }
 }
