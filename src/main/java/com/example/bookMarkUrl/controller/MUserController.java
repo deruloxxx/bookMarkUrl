@@ -7,11 +7,15 @@ import com.example.bookMarkUrl.repository.UrlInfoRepository;
 import com.example.bookMarkUrl.service.MUserService;
 import com.example.bookMarkUrl.service.UrlInfoService;
 import java.util.List;
+
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/user")
@@ -79,10 +83,16 @@ public class MUserController {
   }
 
   @PostMapping("/signup")
-  public String createUser(@ModelAttribute MUser user, Model model) {
+  public String createUser(@Valid @ModelAttribute MUser user, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+    if (bindingResult.hasErrors()) {
+      redirectAttributes.addFlashAttribute("validationErrors", "正しいメールアドレスを入力してください");
+      return "redirect:/user/signup";
+    }
+
     MUser existingUser = mUserRepository.findByUserId(user.getUserId());
     if (existingUser != null) {
-      return "redirect:/user/signup?error=true";
+      redirectAttributes.addFlashAttribute("validationErrors", "このメールアドレスはすでに使用されています。");
+      return "redirect:/user/signup";
     }
     mUserService.createUser(user);
     return "redirect:/user/login";
