@@ -6,13 +6,13 @@ import com.example.bookMarkUrl.entity.UrlInfo;
 import com.example.bookMarkUrl.repository.MUrlInfoRepository;
 import com.example.bookMarkUrl.repository.MUserRepository;
 import com.example.bookMarkUrl.repository.UrlInfoRepository;
-import java.io.IOException;
-
 import com.example.bookMarkUrl.service.interfaces.UrlScrape;
+import java.io.IOException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -47,28 +47,29 @@ public class UrlInfoService {
     urlScrape.setThumbnail(thumbnailElement != null ? thumbnailElement.attr("content") : null);
   }
 
-  public void scrapeAndSaveUserUrl(String url, String userId) throws IOException {
-    UrlInfo urlInfo = new UrlInfo();
-    urlInfo.setUrl(url);
+  private void scrapeAndSave(String url, UrlScrape urlScrape, JpaRepository repository, String userId)
+    throws IOException {
+    urlScrape.setUrl(url);
+    setMUserIfExists(userId, urlScrape);
+    Document document = connect(url);
+    scrapeUrlInfo(document, urlScrape);
+    repository.save(urlScrape);
+  }
+
+  private void setMUserIfExists(String userId, UrlScrape urlScrape) {
+    if (userId == null || !(urlScrape instanceof UrlInfo)) return;
 
     MUser mUser = mUserRepository.findByUserId(userId);
     if (mUser != null) {
-      urlInfo.setMUser(mUser);
+      ((UrlInfo) urlScrape).setMUser(mUser);
     }
+  }
 
-    Document document = Jsoup.connect(url).get();
-    scrapeUrlInfo(document, urlInfo);
-
-    urlInfoRepository.save(urlInfo);
+  public void scrapeAndSaveUserUrl(String url, String userId) throws IOException {
+    scrapeAndSave(url, new UrlInfo(), urlInfoRepository, userId);
   }
 
   public void scrapeAndSaveUrl(String url) throws IOException {
-    MUrlScrapeInfo mUrlInfo = new MUrlScrapeInfo();
-    mUrlInfo.setUrl(url);
-
-    Document document = Jsoup.connect(url).get();
-    scrapeUrlInfo(document, mUrlInfo);
-
-    mUrlInfoRepository.save(mUrlInfo);
+    scrapeAndSave(url, new MUrlScrapeInfo(), mUrlInfoRepository, null);
   }
 }
