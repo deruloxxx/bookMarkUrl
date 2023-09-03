@@ -19,17 +19,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class MUserController {
 
-  @Autowired
-  private MUserService mUserService;
+  private final MUserService mUserService;
+  private final UrlInfoService urlInfoService;
+  private final MUserRepository mUserRepository;
+  private final UrlInfoRepository urlInfoRepository;
 
   @Autowired
-  private UrlInfoService urlInfoService;
-
-  @Autowired
-  private MUserRepository mUserRepository;
-
-  @Autowired
-  private UrlInfoRepository urlInfoRepository;
+  public MUserController(MUserService mUserService, UrlInfoService urlInfoService, MUserRepository mUserRepository, UrlInfoRepository urlInfoRepository) {
+    this.mUserService = mUserService;
+    this.urlInfoService = urlInfoService;
+    this.mUserRepository = mUserRepository;
+    this.urlInfoRepository = urlInfoRepository;
+  }
 
   @GetMapping("/login")
   public String userLogin(Model model) {
@@ -62,6 +63,7 @@ public class MUserController {
     try {
       urlInfoService.scrapeAndSaveUserUrl(url, userId);
     } catch (Exception e) {
+      // TODO エラー処理
       e.printStackTrace();
     }
     return "redirect:/user/url";
@@ -83,6 +85,7 @@ public class MUserController {
     return "redirect:/user/login";
   }
 
+  // TODO エラー処理
   @PostMapping("/delete")
   public String deleteUser(@RequestParam String deleteUserId) {
     mUserService.deleteUser(deleteUserId);
