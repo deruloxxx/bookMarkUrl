@@ -63,8 +63,8 @@ public class MUserController {
     try {
       urlInfoService.scrapeAndSaveUserUrl(url, userId);
     } catch (Exception e) {
-      // TODO エラー処理
       e.printStackTrace();
+      return "redirect:/error";
     }
     return "redirect:/user/url";
   }
@@ -85,7 +85,6 @@ public class MUserController {
     return "redirect:/user/login";
   }
 
-  // TODO エラー処理
   @PostMapping("/delete")
   public String deleteUser(@RequestParam String deleteUserId) {
     mUserService.deleteUser(deleteUserId);

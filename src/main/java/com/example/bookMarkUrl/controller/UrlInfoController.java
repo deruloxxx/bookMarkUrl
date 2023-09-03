@@ -12,19 +12,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class UrlInfoController {
 
-  @Autowired
-  private MUrlInfoRepository mUrlRepository;
+  private final MUrlInfoRepository mUrlInfoRepository;
+  private final UrlInfoService urlInfoService;
 
   @Autowired
-  private UrlInfoService urlInfoService;
-
-  public UrlInfoController(MUrlInfoRepository mUrlInfoRepository) {
-    this.mUrlRepository = mUrlInfoRepository;
+  public UrlInfoController(MUrlInfoRepository mUrlInfoRepository, UrlInfoService urlInfoService) {
+    this.mUrlInfoRepository = mUrlInfoRepository;
+    this.urlInfoService = urlInfoService;
   }
 
   @GetMapping("/")
   public String index(Model model) {
-    model.addAttribute("mUrlInfos", mUrlRepository.findAll());
+    model.addAttribute("mUrlInfos", mUrlInfoRepository.findAll());
     return "index";
   }
 
@@ -40,7 +39,7 @@ public class UrlInfoController {
 
   @PostMapping("/delete")
   public String deleteUrl(@RequestParam Long id) {
-    mUrlRepository.deleteById(id);
+    mUrlInfoRepository.deleteById(id);
     return "redirect:/";
   }
 }

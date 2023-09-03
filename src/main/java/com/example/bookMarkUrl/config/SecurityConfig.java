@@ -76,13 +76,4 @@ public class SecurityConfig {
     users.setUsersByUsernameQuery(usersQuery);
     return users;
   }
-  //  @Bean
-  //  public InMemoryUserDetailsManager userDetailsService() {
-  //    UserDetails user = User
-  //      .withUsername("user")
-  //      .password(passwordEncoder().encode("user"))
-  //      .roles("USER")
-  //      .build();
-  //    return new InMemoryUserDetailsManager(user);
-  //  }
 }
