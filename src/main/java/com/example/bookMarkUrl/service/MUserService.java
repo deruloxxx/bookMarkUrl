@@ -14,14 +14,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class MUserService {
 
-  @Autowired
   private PasswordEncoder passwordEncoder;
 
-  @Autowired
-  MUserRepository mUserRepository;
+  private MUserRepository mUserRepository;
+
+  private UrlInfoRepository urlInfoRepository;
 
   @Autowired
-  private UrlInfoRepository urlInfoRepository;
+  public MUserService(
+    PasswordEncoder passwordEncoder,
+    MUserRepository mUserRepository,
+    UrlInfoRepository urlInfoRepository
+  ) {
+    this.passwordEncoder = passwordEncoder;
+    this.mUserRepository = mUserRepository;
+    this.urlInfoRepository = urlInfoRepository;
+  }
 
   public List<UrlInfo> getUserUrls(String userId) {
     MUser user = mUserRepository.findByUserId(userId);
