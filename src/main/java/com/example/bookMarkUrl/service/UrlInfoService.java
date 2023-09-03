@@ -16,14 +16,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class UrlInfoService {
 
-  @Autowired
   private MUrlInfoRepository mUrlInfoRepository;
-
-  @Autowired
   private UrlInfoRepository urlInfoRepository;
+  private MUserRepository mUserRepository;
 
   @Autowired
-  private MUserRepository mUserRepository;
+  public UrlInfoService(
+    MUrlInfoRepository mUrlInfoRepository,
+    UrlInfoRepository urlInfoRepository,
+    MUserRepository mUserRepository
+  ) {
+    this.mUrlInfoRepository = mUrlInfoRepository;
+    this.urlInfoRepository = urlInfoRepository;
+    this.mUserRepository = mUserRepository;
+  }
 
   public Document connect(String url) throws IOException {
     return Jsoup.connect(url).get();

@@ -7,8 +7,6 @@ import com.example.bookMarkUrl.repository.UrlInfoRepository;
 import com.example.bookMarkUrl.service.MUserService;
 import com.example.bookMarkUrl.service.UrlInfoService;
 import java.util.List;
-
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -25,7 +23,12 @@ public class MUserController {
   private final UrlInfoRepository urlInfoRepository;
 
   @Autowired
-  public MUserController(MUserService mUserService, UrlInfoService urlInfoService, MUserRepository mUserRepository, UrlInfoRepository urlInfoRepository) {
+  public MUserController(
+    MUserService mUserService,
+    UrlInfoService urlInfoService,
+    MUserRepository mUserRepository,
+    UrlInfoRepository urlInfoRepository
+  ) {
     this.mUserService = mUserService;
     this.urlInfoService = urlInfoService;
     this.mUserRepository = mUserRepository;
