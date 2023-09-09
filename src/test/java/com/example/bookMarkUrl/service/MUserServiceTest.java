@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -45,5 +46,20 @@ class MUserServiceTest {
     List<UrlInfo> result = mUserService.getUserUrls("testUser");
     assertNotNull(result);
     assertEquals(2, result.size());
+  }
+
+  @Test
+  public void testCreateUser() {
+    MUser user = new MUser();
+
+    user.setPassword("password");
+
+    when(passwordEncoder.encode(anyString())).thenReturn("encodedPassword");
+    when(mUserRepository.save(user)).thenReturn(user);
+
+    MUser result = mUserService.createUser(user);
+    assertNotNull(result);
+    assertEquals("encodedPassword", result.getPassword());
+    assertEquals("ROLE_USER", result.getRole());
   }
 }
