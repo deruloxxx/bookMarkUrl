@@ -34,7 +34,7 @@ class MUserServiceTest {
 
   @Test
   @DisplayName("ユーザーが登録したurlを取得する")
-  public void testGetUserUrls() {
+  void testGetUserUrls() {
     MUser user = new MUser();
     user.setUserId("testUser");
 
@@ -49,7 +49,7 @@ class MUserServiceTest {
 
   @Test
   @DisplayName("ユーザーを作成")
-  public void testCreateUser() {
+  void testCreateUser() {
     MUser user = new MUser();
     user.setPassword("password");
 
@@ -64,7 +64,7 @@ class MUserServiceTest {
 
   @Test
   @DisplayName("'userId'に該当するユーザーを削除")
-  public void testDeleteUser() {
+  void testDeleteUser() {
     String userId = "testUser";
 
     doNothing().when(mUserRepository).deleteById(userId);
