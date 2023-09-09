@@ -4,6 +4,7 @@ import com.example.bookMarkUrl.entity.MUser;
 import com.example.bookMarkUrl.entity.UrlInfo;
 import com.example.bookMarkUrl.repository.MUserRepository;
 import com.example.bookMarkUrl.repository.UrlInfoRepository;
+import org.aspectj.apache.bcel.classfile.Unknown;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +16,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class MUserServiceTest {
@@ -51,7 +52,6 @@ class MUserServiceTest {
   @Test
   public void testCreateUser() {
     MUser user = new MUser();
-
     user.setPassword("password");
 
     when(passwordEncoder.encode(anyString())).thenReturn("encodedPassword");
@@ -61,5 +61,16 @@ class MUserServiceTest {
     assertNotNull(result);
     assertEquals("encodedPassword", result.getPassword());
     assertEquals("ROLE_USER", result.getRole());
+  }
+
+  @Test
+  public void testDeleteUser() {
+    String userId = "testUser";
+
+    doNothing().when(mUserRepository).deleteById(userId);
+
+    mUserService.deleteUser(userId);
+
+    verify(mUserRepository, times(1)).deleteById(userId);
   }
 }
