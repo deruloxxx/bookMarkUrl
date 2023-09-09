@@ -4,7 +4,7 @@ import com.example.bookMarkUrl.entity.MUser;
 import com.example.bookMarkUrl.entity.UrlInfo;
 import com.example.bookMarkUrl.repository.MUserRepository;
 import com.example.bookMarkUrl.repository.UrlInfoRepository;
-import org.aspectj.apache.bcel.classfile.Unknown;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,10 +32,8 @@ class MUserServiceTest {
   @MockBean
   private UrlInfoRepository urlInfoRepository;
 
-  MUserServiceTest() {
-  }
-
   @Test
+  @DisplayName("ユーザーが登録したurlを取得する")
   public void testGetUserUrls() {
     MUser user = new MUser();
     user.setUserId("testUser");
@@ -50,6 +48,7 @@ class MUserServiceTest {
   }
 
   @Test
+  @DisplayName("ユーザーを作成")
   public void testCreateUser() {
     MUser user = new MUser();
     user.setPassword("password");
@@ -64,6 +63,7 @@ class MUserServiceTest {
   }
 
   @Test
+  @DisplayName("'userId'に該当するユーザーを削除")
   public void testDeleteUser() {
     String userId = "testUser";
 
