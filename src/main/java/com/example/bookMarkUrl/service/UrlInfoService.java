@@ -36,6 +36,14 @@ public class UrlInfoService {
   public Document connect(String url) throws IOException {
     return Jsoup.connect(url).get();
   }
+  private void setMUserIfExists(String userId, UrlScrape urlScrape) {
+    if (userId == null || !(urlScrape instanceof UrlInfo)) return;
+
+    MUser mUser = mUserRepository.findByUserId(userId);
+    if (mUser != null) {
+      ((UrlInfo) urlScrape).setMUser(mUser);
+    }
+  }
 
   private void scrapeUrlInfo(Document document, UrlScrape urlScrape) {
     Element titleElement = document.select("meta[property=og:title]").first();
@@ -56,14 +64,6 @@ public class UrlInfoService {
     repository.save(urlScrape);
   }
 
-  private void setMUserIfExists(String userId, UrlScrape urlScrape) {
-    if (userId == null || !(urlScrape instanceof UrlInfo)) return;
-
-    MUser mUser = mUserRepository.findByUserId(userId);
-    if (mUser != null) {
-      ((UrlInfo) urlScrape).setMUser(mUser);
-    }
-  }
 
   public void scrapeAndSaveUserUrl(String url, String userId) throws IOException {
     scrapeAndSave(url, new UrlInfo(), urlInfoRepository, userId);
